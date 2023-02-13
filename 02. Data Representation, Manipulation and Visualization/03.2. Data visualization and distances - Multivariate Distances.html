@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <base target="_blank">
+  <style>
+:root {
+  --fg: #000; /* foreground  */
+  --bg: #fff; /* background  */
+  --bd: #000; /* border  */
+  --lk: #0095dd; /* link */
+  --hg: #ffff81; /* highlight  */
+}
+html {
+  overflow: overlay;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 30px auto 0 auto;
+  padding: 10px;
+  position: relative;
+
+  color: var(--fg);
+  border-color: var(--bd);
+  background-color: var(--bg);
+}
+body[data-mode="light"] {
+  color-scheme: light;
+  --fg:  #222;
+  --bd:  #222;
+  --bg:  whitesmoke;
+}
+body[data-mode="dark"] {
+  color-scheme: dark;
+  --fg:  #eee;
+  --bd:  #eee;
+  --bg:  #333;
+}
+body[data-mode="sepia"] {
+  color-scheme: light;
+  --fg:  #5b4636;
+  --bd:  #5b4636;
+  --bg:  #f4ecd8;
+}
+body[data-mode="solarized-light"] {
+  color-scheme: light;
+  --fg:  #586e75;
+  --bd:  #586e75;
+  --bg:  #fdf6e3;
+}
+body[data-mode="nord-light"] {
+  color-scheme: light;
+  --fg:  #2e3440;
+  --bd:  #2e3440;
+  --bg:  #e5e9f0;
+}
+body[data-mode="groove-dark"] {
+  color-scheme: dark;
+  --fg:  #cec4ac;
+  --bd:  #cec4ac;
+  --bg:  #282828;
+}
+body[data-mode="solarized-dark"] {
+  color-scheme: dark;
+  --fg:  #839496;
+  --bd:  #839496;
+  --bg:  #002b36;
+}
+body[data-mode="nord-dark"] {
+  color-scheme: dark;
+  --fg:  #e5e9f0;
+  --bd:  #e5e9f0;
+  --bg:  #2e3440;
+}
+
+@media print {
+  body[data-mode] {
+    --fg: #000;
+    --bd: #000;
+    --bg: #fff;
+
+    width: unset;
+    padding: 0;
+    margin: 0;
+  }
+}
+body[data-loaded=true] {
+  
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+img:not([width])[src$=".svg"] {
+  max-width: 100px;
+}
+body[data-images=false] canvas,
+body[data-images=false] svg,
+body[data-images=false] img {
+  display: none;
+}
+svg:not([width]):not([height]) {
+  max-width: 25vmin;
+}
+a {
+  color: var(--lk);
+  text-decoration: none;
+}
+hr {
+  background-color: var(--bd);
+  height: 1px;
+  border: 0;
+}
+#reader-domain {
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  border-bottom-color: currentcolor;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: inline-block;
+  direction: ltr;
+}
+#reader-domain > span:first-child {
+  font-size: 1.1em;
+}
+#reader-domain > span:last-child {
+  font-size: 0.8em;
+}
+#reader-title {
+  font-size: 1.6em;
+  line-height: 1.25em;
+  width: 100%;
+  margin: 20px 0;
+  padding: 0;
+}
+#reader-credits,
+#doi,
+#published-time,
+#reader-estimated-time {
+  font-size: 0.85em;
+  line-height: 1.48em;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+#reader-credits:not(:empty)::after {
+  content: ' ⋮ ';
+}
+#published-time:not(:empty)::before {
+  content: ' ⋮ ';
+}
+#doi-json {
+  overflow: hidden;
+}
+#doi-json code {
+  overflow: auto;
+  max-height: 400px;
+}
+#published-time:empty,
+#reader-credits:empty {
+  display: none;
+}
+body[data-speech="true"] .tts-box {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: 0 0 0 1000vw rgba(128, 128, 128, 0.2);
+}
+body[data-speech="true"] ::selection {
+  background-color: #fff740;
+  color: #000;
+}
+.tts-box.hidden {
+  display: none;
+}
+body[data-speech="false"] .tts-speaking::after {
+  display: none;
+}
+mark.hghlght {
+  background-color: var(--hg);
+}
+.hidden {
+  display: none;
+}
+</style>
+  <style id="user-css">body {
+  padding-bottom: 64px;
+}
+a:visited {
+  color: #d33bf0;
+}
+a:link, a:link:hover, a:link:active, a:link * {
+  color: #0095dd;
+}
+a:link {
+  text-decoration: none;
+  font-weight: normal;
+}
+pre {
+  white-space: pre-wrap;
+}
+pre code {
+  background-color: #eff0f1;
+  color: #393318;
+  font-family: monospace;
+  display: block;
+  padding: 5px 10px;
+}
+body[data-mode="dark"] pre code {
+  background-color: #585858;
+  color: #e8e8e8;
+}
+
+/* CSS for sans-serif fonts */
+body[data-font=sans-serif] {}
+/* CSS for serif fonts */
+body[data-font=serif] {}
+
+/* CSS for "sepia" theme */
+body[data-mode=sepia] {}
+/* CSS for "light" theme */
+body[data-mode=light] {}
+/* CSS for "dark" theme */
+body[data-mode=dark] {}</style>
+<title>Multivariate Distances: Mahalanobis vs. Euclidean</title><title>Multivariate Distances: Mahalanobis vs. Euclidean :: Reader View</title></head>
+<body tabindex="1" data-images="true" data-mode="light" data-font="sans-serif" data-loaded="true">
+  <span></span> <!-- for IntersectionObserver -->
+  <a id="reader-domain" href="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/">
+    <span>waterprogramming.wordpress.com</span>
+    <span>/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/</span>
+  </a>
+  <h1 dir="auto" id="reader-title">Multivariate Distances: Mahalanobis vs. Euclidean</h1>
+  <span dir="auto" id="reader-credits"></span>
+  <span dir="auto" id="reader-estimated-time">9-12 minutes</span>
+  <span dir="auto" id="published-time">23/07/2018</span><div id="doi">DOI: <a href="https://doi.org/10.1029/95WR02966" target="_blank">10.1029/95wr02966</a>, <a href="#">Show</a> Details</div>
+  <hr>
+  <div id="readability-page-1" class="page"><div>
+		<p>Some supervised and unsupervised learning algorithms, such as k-nearest neighbors and k-means clustering, depend on distance calculations. In this post, I will discuss why the Mahalanobis distance is almost always better to use than the Euclidean distance for the multivariate case. There is overlap between the ideas here and <a href="https://waterprogramming.wordpress.com/2017/02/22/dealing-with-multicollinearity-a-brief-overview-and-introduction-to-tolerant-methods/">David’s post on multicollinearity</a>, so give that one a read too!</p>
+<h2>Why you should care about multivariate distance</h2>
+<p>Synthetic time series generation methods are of interest to many of us in systems optimization and the topic been covered extensively on this blog. For an overview on that subject, check out <a href="https://waterprogramming.wordpress.com/2017/02/07/synthetic-streamflow-generation/">Jon’s blog post on synthetic streamflow</a>. It’s a great read and will give you many more resources to explore.</p>
+<p>Among synthetic time series generation methods the k-nearest neighbors (k-NN) bootstrap resampling algorithm, developed by Lall and Sharma (1996), is a popular method for generating synthetic time series data of streamflow and weather variables. The k-NN algorithm resamples the observed data in a way that attempts to preserve the statistics of that data (e.g., mean and standard deviation at each timestep, lag-1 autocorrelation, etc.) but creates new and interesting synthetic records for the user to explore. As the name implies, this algorithm relies on finding k (generally set to be ⌊√(N)⌉, where N is the number of years of observed data) “nearest neighbors” to do its magic.</p>
+<h2>Determining the nearest neighbors</h2>
+<p>Finding those neighbors is straightforward in the univariate case (when there is only a single variable you want to simulate)—you just calculate the Euclidean distance. The shorter the distance, the “nearer” the neighbor. Well, it gets a bit more complicated in the multivariate case. There, you’ve got different units involved and correlation among variables which throws a wrench in the whole Euclidean distance thing. So, in most cases the Mahalanobis distance is preferred. Let me explain…</p>
+<h2>Example: how multivariate distance can help buy a car</h2>
+<p>Say we want to buy a four-wheel drive (4wd) car that will get us up into the mountains. We’ve got our eye set on a dream car, a 4wd Jeep, but we know we should shop around. So, let’s look at other 4wd cars on the market and compare their highway gas mileage and displacement (the total volume of all the cylinders in your engine) to find other cars we might be interested in. In other words, we are looking for the dream car’s nearest neighbors, with respect to those two measures.</p>
+<div data-shortcode="caption" id="attachment_15436"><p><img aria-describedby="caption-attachment-15436" data-attachment-id="15436" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig1-4/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig1.png" data-orig-size="700,432" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig1" data-image-description="" data-image-caption="<p>Figure 1. Comparing highway gas mileage with displacement for our dream car and the others available.</p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=660" alt="fig1" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig1.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig1.png 700w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15436">Figure 1. Comparing highway gas mileage with displacement for our dream car and the others available.</p></div>
+<h3>Euclidean Distance</h3>
+<p>By glancing at the plot above, the distance calculation might appear trivial. In fact, you can probably roughly rank which points lie closest to the dream car just by eyeballing it. But when you try to do the calculation for Euclidean distance (equation 1), it will be skewed based on the units for gas mileage and displacement.</p>
+<p><img src="https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ET%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ET%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ET%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="d(\overrightarrow{x},\overrightarrow{y})=\sqrt{(\overrightarrow{x}-\overrightarrow{y})^T(\overrightarrow{x}-\overrightarrow{y})}">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (1)</p>
+<p>Where:&nbsp;<img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{x}"> represents the attributes of our car and <img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{y}"> represents the attributes of another car.</p>
+<p>For example, what if instead of miles per gallon, gas mileage was reported in feet per gallon? By changing those units, gas mileage would have multiple orders of magnitude more weight in the distance calculation than displacement. In that case, gas mileage would basically be the only thing that matters, which isn’t fair to poor old displacement. Therefore, when using the Euclidean distance to compare multiple variables we need to standardize the data which eliminates units and weights both measures equally. To do so, we can calculate the z-score (equation 2) for each observation:</p>
+<p><img src="https://s0.wp.com/latex.php?latex=z+%3D+%5Cfrac%7Bx+-+%5Cmu%7D%7B%5Csigma%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=z+%3D+%5Cfrac%7Bx+-+%5Cmu%7D%7B%5Csigma%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=z+%3D+%5Cfrac%7Bx+-+%5Cmu%7D%7B%5Csigma%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="z = \frac{x - \mu}{\sigma}">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (2)</p>
+<p>Where: z is the z-score (standardized variable), x is an observation, <img src="https://s0.wp.com/latex.php?latex=%5Cmu&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Cmu&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Cmu&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\mu"> and <img src="https://s0.wp.com/latex.php?latex=%5Csigma&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Csigma&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Csigma&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\sigma"> are the mean and standard deviation of the observation variable, respectively.</p>
+<p>Visually, this is just like looking at our plot from before with no units at all.</p>
+<div data-shortcode="caption" id="attachment_15437"><p><img aria-describedby="caption-attachment-15437" data-attachment-id="15437" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig2-2/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig2.png" data-orig-size="700,432" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig2" data-image-description="" data-image-caption="<p>Figure 2. Scale removed from Figure 1 to show that we need to remove the influence of units on the Euclidean distance calculation.</p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=660" alt="fig2" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig2.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig2.png 700w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15437">Figure 2. Scale removed from Figure 1 to show that we need to remove the influence of units on the Euclidean distance calculation.</p></div>
+<p>Now we can calculate the Euclidean distance and find the nearest neighbors!</p>
+<div data-shortcode="caption" id="attachment_15438"><p><img aria-describedby="caption-attachment-15438" data-attachment-id="15438" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig3-4/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig3.png" data-orig-size="671,446" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig3" data-image-description="" data-image-caption="<p>Figure 3. The Euclidean distance and rank assigned to each car, where rank 0 is our “dream car”. If we were interested in a k-nearest neighbor algorithm with k=4, the points in the orange box would be selected as the neighbors. </p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=660" alt="euclidean-distance_cars" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig3.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig3.png 671w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15438">Figure 3. The Euclidean distance and rank assigned to each car, where rank 0 is our “dream car”. If we were interested in a k-nearest neighbor algorithm with k=4, the points in the orange box would be selected as the neighbors.</p></div>
+<p>Take note of the k-nearest neighbors in the orange box. Let’s see whether or not we get the same neighbors with the Mahalanobis distance.</p>
+<h3>Mahalanobis Distance</h3>
+<p>The Mahalanobis distance calculation (equation 3) differs only slightly from Euclidean distance (equation 1).</p>
+<p><img src="https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ETS%5E%7B-1%7D%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ETS%5E%7B-1%7D%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=d%28%5Coverrightarrow%7Bx%7D%2C%5Coverrightarrow%7By%7D%29%3D%5Csqrt%7B%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%5ETS%5E%7B-1%7D%28%5Coverrightarrow%7Bx%7D-%5Coverrightarrow%7By%7D%29%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="d(\overrightarrow{x},\overrightarrow{y})=\sqrt{(\overrightarrow{x}-\overrightarrow{y})^TS^{-1}(\overrightarrow{x}-\overrightarrow{y})}">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (3)</p>
+<p>Where:&nbsp;<img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{x}"> represents the attributes of our car, <img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{y}"> represents the attributes of another car, and <img src="https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="S^{-1}"> is the covariance matrix of <img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7Bx%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{x}"> and <img src="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=%5Coverrightarrow%7By%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="\overrightarrow{y}"></p>
+<p>Unlike the Euclidean distance though, the Mahalanobis distance accounts for how correlated the variables are to one another. For example, you might have noticed that gas mileage and displacement are highly correlated. Because of this, there is a lot of redundant information in that Euclidean distance calculation. By considering the covariance between the points in the distance calculation, we remove that redundancy.</p>
+<div data-shortcode="caption" id="attachment_15439"><p><img aria-describedby="caption-attachment-15439" data-attachment-id="15439" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig4-2/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig4.png" data-orig-size="665,440" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig4" data-image-description="" data-image-caption="<p>Figure 4. The Mahalanobis distance and rank assigned to each car, where rank 0 is our “dream car”. </p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=660" alt="mahalanobis-distance_cars" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig4.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig4.png 665w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15439">Figure 4. The Mahalanobis distance and rank assigned to each car, where rank 0 is our “dream car”.</p></div>
+<p>And look! By comparing the ranks in the orange boxes in Figures 3 and 4, we can see that&nbsp; although the ranks are similar between the two distance metrics, they do in fact yield different nearest neighbors. So which points get more weight when using the Mahalnobis distance vs. using the Euclidean distance?</p>
+<p>To answer that question, I’ve standardized the distance calculations so we can compare them to one another and plotted each on a 1-to-1 line. If the distance metrics were exactly the same, all the points would end up on that line and they would each have a Mahalanobis to Euclidean ratio of 0. However, we see that certain points get more weight (i.e., a larger distance calculated) depending on the distance metric used.</p>
+<div data-shortcode="caption" id="attachment_15440"><p><img aria-describedby="caption-attachment-15440" data-attachment-id="15440" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig5-2/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig5.png" data-orig-size="700,432" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig5" data-image-description="" data-image-caption="<p>Figure 5. Mahalanobis to Euclidean distances plotted for each car in the dataset.  The points are colored based on the Mahalnobis to Euclidean ratio, where zero means that the distance metrics have equal weight. Purple means the Mahalanobis distance has greater weight than Euclidean and orange means the opposite. </p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=660" alt="mahalanobis-euclidean-distance-ratio" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig5.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig5.png 700w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15440">Figure 5. Mahalanobis to Euclidean distances plotted for each car in the dataset. The points are colored based on the Mahalnobis to Euclidean ratio, where zero means that the distance metrics have equal weight. Purple means the Mahalanobis distance has greater weight than Euclidean and orange means the opposite.</p></div>
+<p>Let’s map the Mahalanonbis to Euclidean ratio onto our gas mileage v. displacement plot.</p>
+<div data-shortcode="caption" id="attachment_15441"><p><img aria-describedby="caption-attachment-15441" data-attachment-id="15441" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig6-2/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig6.png" data-orig-size="700,432" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig6" data-image-description="" data-image-caption="<p>Figure 6. The gas mileage vs. displacement of the cars as color-coded by the Mahalanobis to Euclidean ratio from Figure 5.</p>
+" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=660" src="https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=660" alt="fig6" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=660 660w, https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig6.png?w=300 300w, https://waterprogramming.files.wordpress.com/2018/07/fig6.png 700w" sizes="(max-width: 660px) 100vw, 660px"></p><p id="caption-attachment-15441">Figure 6. The gas mileage vs. displacement of the cars as color-coded by the Mahalanobis to Euclidean ratio from Figure 5.</p></div>
+<p>Notice that many of the points at the top left and bottom right part of the screen are orange, meaning that the Euclidean distance calculation would give them more weight. And then there’s that point at the bottom center of plot. That one gets far more weight when using Mahalanobis distance. To understand this let’s look at the axes of greatest variability in the data, these are also known as principle components. For a primer on that subject, check out <a href="https://waterprogramming.wordpress.com/2017/03/21/a-visual-introduction-to-data-compression-through-principle-component-analysis/">David’s post</a>&nbsp;and <a href="https://waterprogramming.wordpress.com/2018/04/10/a-deeper-dive-into-principal-component-analysis/">Ronhini’s post on principle component analysis</a>!</p>
+<p><img data-attachment-id="15442" data-permalink="https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/fig7-2/#main" data-orig-file="https://waterprogramming.files.wordpress.com/2018/07/fig7.png" data-orig-size="654,437" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="fig7" data-image-description="" data-image-caption="" data-medium-file="https://waterprogramming.files.wordpress.com/2018/07/fig7.png?w=300" data-large-file="https://waterprogramming.files.wordpress.com/2018/07/fig7.png?w=654" src="https://waterprogramming.files.wordpress.com/2018/07/fig7.png?w=660" alt="mahalanobis-euclidean_pca" srcset="https://waterprogramming.files.wordpress.com/2018/07/fig7.png 654w, https://waterprogramming.files.wordpress.com/2018/07/fig7.png?w=150 150w, https://waterprogramming.files.wordpress.com/2018/07/fig7.png?w=300 300w" sizes="(max-width: 654px) 100vw, 654px"></p>
+<p>When using Mahalanobis, the ellipse shown on the plot is squeezed towards circle. Along the first principle component axis, there is a lot of work to get it there! The points in the top right and bottom right corners move quite a bit to get towards a nice neat circle. Along the second principle component axis, there is not much squishing to do. The difference between these distance calculations are due to this “squishification” (<a href="https://examily.com/article/but-what-is-a-neural-network-deep-learning-chapter-1-9016">a term used by the great 3blue1brown</a> so it must be real). The Mahalnobis distance can be thought of calculating the Euclidean distance after performing this “squishification”. In fact, when the variables are completely uncorrelated, no squishing can happen, thus these two calculations are identical (i.e., <img src="https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002" srcset="https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002 1x, https://s0.wp.com/latex.php?latex=S%5E%7B-1%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0&amp;c=20201002&amp;zoom=4.5 4x" alt="S^{-1}">=1).</p>
+<h2>Why you should use Mahalanobis distance (in general)</h2>
+<p>Which one should I use and when? When in doubt, Mahalanobis it out. When using the Mahalanobis distance, we don’t have to standardize the data like we did for the Euclidean distance. The covariance matrix calculation takes care of this. Also, it removes redundant information from correlated variables. Even if your variables aren’t very correlated it can’t hurt to use Mahalanobis distance, it will just be quite similar to the results you’ll get from Euclidean. You’ll notice that most recent k-NN resampling literature uses the Mahalanobis distance: Yates et al. (2003) and Sharif and Burn (2007).</p>
+<p>One issue with the Mahalanobis distance is that it depends on taking the inverse of the covariance matrix. If this matrix is not invertible, no need to fear, you <a href="https://stats.stackexchange.com/questions/37743/singular-covariance-matrix-in-mahalanobis-distance-in-matlab">can calculate the pseudo-inverse instead</a> to calculate the Mahalanobis distance (thanks to Philip Trettner for pointing that out!).</p>
+<h2>Code Availability</h2>
+<p>For anyone interested in the code used to create the figures in this post, I’ve created a <a href="https://gist.github.com/wraseman/f4be0414b1c791bd341082e2ef53b295">GitHub gist</a>.</p>
+<h2>References</h2>
+<div>
+<p>Lall, Upmanu, and Ashish Sharma. “A Nearest Neighbor Bootstrap For Resampling Hydrologic Time Series.” <i>Water Resources Research</i> 32, no. 3 (March 1, 1996): 679–93. <a href="https://doi.org/10.1029/95WR02966">https://doi.org/10.1029/95WR02966</a>.</p>
+</div>
+
+<div>
+<p>Sharif, Mohammed, and Donald Burn. “Improved K -Nearest Neighbor Weather Generating Model.” <i>Journal of Hydrologic Engineering</i> 12, no. 1 (January 1, 2007): 42–51. <a href="https://doi.org/10.1061/(ASCE)1084-0699(2007)12:1(42)">https://doi.org/10.1061/(ASCE)1084-0699(2007)12:1(42)</a>.</p>
+</div>
+
+<div>
+<p>Yates, David, Subhrendu Gangopadhyay, Balaji Rajagopalan, and Kenneth Strzepek. “A Technique for Generating Regional Climate Scenarios Using a Nearest-Neighbor Algorithm.” <i>Water Resources Research</i> 39, no. 7 (2003). <a href="https://doi.org/10.1029/2002WR001769">https://doi.org/10.1029/2002WR001769</a>.</p>
+</div>
+			</div></div>
+  <span></span> <!-- for IntersectionObserver -->
+  
+  
+  
+  
+  
+
+
+<style id="note-styling">
+    .note {
+      position: absolute;
+      z-index: 10;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 5px;
+      min-width: 32px;
+      min-height: 32px;
+    }
+    .note:focus {
+      z-index: 11;
+    }
+    .note[type="0"] {
+      background-color: #fff740;
+      color: #2c2c2d;
+    }
+    .note[type="0"]::placeholder {
+      color: #868226;
+    }
+    .note[type="1"] {
+      background-color: #feff9c;
+      color: #2c2c2d;
+    }
+    .note[type="1"]::placeholder {
+      color: #6d6d3d;
+    }
+    .note[type="2"] {
+      background-color: #ff65a3;
+      color: #2c2c2d;
+    }
+    .note[type="2"]::placeholder {
+      color: #65263f;
+    }
+    .note[type="3"] {
+      background-color: #ff7eb9;
+      color: #2c2c2d;
+    }
+    .note[type="3"]::placeholder {
+      color: #562b3f;
+    }
+    .note[type="4"] {
+      background-color: #7afcff;
+      color: #295c5d;
+    }
+    .note[type="4"]::placeholder {
+      color: #377677;
+    }</style></body><style>body {
+      font-size:  14px;
+      font-family: Helvetica, Arial, sans-serif;
+      width: 600px;
+    }
+    p {
+      text-align: justify
+    }
+    .page {
+      line-height: 21.0px;
+      column-count: unset;
+    }
+    h1, h2, h3 {
+      line-height: initial;
+    }</style></html>
